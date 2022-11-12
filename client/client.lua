@@ -14,7 +14,7 @@ local horseModels = {"a_c_horse_andalusian_darkbay","a_c_horse_arabian_grey","a_
 local banditsModel = {"G_M_M_UniBanditos_01","A_M_M_GRIFANCYDRIVERS_01","A_M_M_NEAROUGHTRAVELLERS_01","A_M_M_RANCHERTRAVELERS_COOL_01","A_M_M_RANCHERTRAVELERS_WARM_01"}
 local npcs = {}
 local horses = {}
-
+local QRCore = exports['qr-core']:GetCoreObject()
 
 AddEventHandler("onResourceStop",function(resourceName)
         for v,k in pairs(npcs) do
@@ -88,13 +88,13 @@ function banditsStart(bandits)
                     end
                     npcs = {}
                     inRobbery = false
-	            exports['qbr-core']:Notify(9, 'All the bandits are down.', 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
+		    QRCore.Functions.Notify('All the bandits are down.', 'primary')
                     break
                 end
             end
         end
     end)
-    exports['qbr-core']:Notify(9, 'You were ambushed!', 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
+   QRCore.Functions.Notify('You were ambushed!', 'primary')
 end
 
 
@@ -137,7 +137,7 @@ Citizen.CreateThread(function()
         if inRobbery == true then
             local runAway = false
             if IsPedDeadOrDying(PlayerPedId(),true) then
-                exports['qbr-core']:Notify(9, 'You ve been robbed.', 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
+		QRCore.Functions.Notify('You ve been robbed.', 'primary')
                 for v,k in pairs(npcs) do
                     DeleteEntity(k)
                 end
@@ -160,7 +160,7 @@ Citizen.CreateThread(function()
                 end
                 npcs = {}
                 inRobbery = false
-		exports['qbr-core']:Notify(9, 'You managed to escape', 5000, 0, 'mp_lobby_textures', 'cross', 'COLOR_WHITE')
+		QRCore.Functions.Notify('You managed to escape.', 'primary')
             end
         end
     end
